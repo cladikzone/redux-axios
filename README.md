@@ -1,11 +1,11 @@
-# redux-axios-middleware
+# redux-axios
 
-Redux middleware for fetching data with axios HTTP client
+Axios wrapper for Redux
 
 ## Installation
 
 ```bash
-npm i -S redux-axios-middleware
+npm i -S redux-axios
 ```
 
 ## How to use?
@@ -18,23 +18,69 @@ options for customizing
 
 ```js
 import {createStore, applyMiddleware} from 'redux';
-import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
-
-const client = axios.create({ //all axios can be used, shown in axios documentation
-  baseURL:'http://localhost:8080/api',
-  responseType: 'json'
-});
+import clients from 'clients';
 
 let store = createStore(
   reducers, //custom reducers
   applyMiddleware(
     //all middlewares
     ...
-    axiosMiddleware(client), //second parameter options can optionally contain onSuccess, onError, onComplete, successSuffix, errorSuffix
+    axiosMiddleware(clients),
     ...
   )
 )
+```
+You'll need a clients list, for example `clients/index.js`
+```js
+import backend from 'clients/backend';
+import google from 'clients/google';
+import github from 'clients/github';
+
+const clients = {
+  default: backend,
+  google,
+  github
+};
+
+export default clients;
+```
+And your default client file `clients/backend.js` would been look like this:
+```js
+/**
+ * Client Configuration
+ * @param axios   This parameter can be referenced to https://github.com/mzabriskie/axios#axioscreateconfig
+ * @param options This parameter can optionally contain onSuccess, onError, onComplete, successSuffix, errorSuffix
+ */
+const backend = {
+  axios: {
+    baseURL: 'http://localhost:8080',
+    responseType: 'json',
+  },
+  //opt
+  options: {
+    interceptors: {
+      request: [
+        (getState, config) => {
+          if (getState().user.token) {
+            config.headers['Authorization'] = 'Bearer ' + getState().user.token
+          }
+
+          return config
+        }
+      ],
+      response: [
+        (getState, response) => {
+          ...
+
+          return response
+        }
+      ]
+    }
+  }
+};
+
+export default backend;
 ```
 
 ### Dispatch action
@@ -53,6 +99,7 @@ export function loadCategories() {
   return {
     type: 'LOAD',
     payload: {
+      client: 'google', // this will fail back to default (unset this key or can't find that file)
       request:{
         url:'/categories'
       }
@@ -110,7 +157,7 @@ Promise.all([
 
 ### Request complete
 
-After request complete, middleware will dispatch new action, 
+After request complete, middleware will dispatch new action,
 
 #### on success
 
@@ -143,10 +190,10 @@ Error action is same as success action with one difference, there's no key `payl
 ```js
 {
     type:'OH_NO',
-    error: { 
+    error: {
       status: 0,
       ... //rest of axios error response object
-    }, 
+    },
     meta: {
       previousAction: { ... } //action which triggered request
     }

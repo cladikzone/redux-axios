@@ -1,7 +1,7 @@
 {
-  "name": "redux-axios-middleware",
-  "version": "1.0.0-rc.1",
-  "description": "Redux middleware for fetching data with axios HTTP client",
+  "name": "redux-axios",
+  "version": "0.0.1",
+  "description": "Axios wrapper for Redux",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "npm run lint && npm run build",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/svrcekmichal/redux-axios-middleware.git"
+    "url": "git+https://github.com/18601673727/redux-axios.git"
   },
-  "author": "Michal Svrcek <svrcekmichal@gmail.com>",
+  "author": "18601673727 <18601673727@163.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/svrcekmichal/redux-axios-middleware/issues"
+    "url": "https://github.com/18601673727/redux-axios/issues"
   },
-  "homepage": "https://github.com/svrcekmichal/redux-axios-middleware",
+  "homepage": "https://github.com/18601673727/redux-axios",
   "dependencies": {
     "axios": ">= 0.5"
   },
