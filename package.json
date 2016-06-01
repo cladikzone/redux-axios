@@ -1,6 +1,6 @@
 {
   "name": "redux-axios",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Axios wrapper for Redux",
   "main": "lib/index.js",
   "scripts": {

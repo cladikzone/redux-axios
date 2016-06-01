@@ -18,7 +18,7 @@ options for customizing
 
 ```js
 import {createStore, applyMiddleware} from 'redux';
-import axiosMiddleware from 'redux-axios-middleware';
+import axiosMiddleware from 'redux-axios';
 import clients from 'clients';
 
 let store = createStore(
