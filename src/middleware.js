@@ -15,8 +15,8 @@ function bindInterceptors(client, getState, { request = [], response = [] } = {}
 
 export default function (configs) {
   return ({ getState, dispatch }) => next => action => {
-    const client = getClient(configs, action);
-    const options = { ...defaultOptions, ...client.options };
+    const { client, options } = getClient(configs, action);
+    const options = { ...defaultOptions, ...options };
     if (!options.isAxiosRequest(action)) {
       return next(action);
     }
