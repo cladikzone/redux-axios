@@ -5,5 +5,5 @@ export const getClient = (configs, action) => {
     (action.payload && action.payload.client) ? action.payload.client : 'default'
   ];
 
-  return { client:  axios.create(config.axios), options: config.options };
+  return { client: axios.create(config.axios), providedOptions: config.options };
 };

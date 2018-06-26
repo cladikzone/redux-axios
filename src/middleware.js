@@ -15,12 +15,12 @@ function bindInterceptors(client, getState, { request = [], response = [] } = {}
 
 export default function (configs) {
   return ({ getState, dispatch }) => next => action => {
-    const { client, options } = getClient(configs, action);
-    const options = { ...defaultOptions, ...options };
+    const { client, providedOptions } = getClient(configs, action);
+    const options = { ...defaultOptions, ...providedOptions };
     if (!options.isAxiosRequest(action)) {
       return next(action);
     }
-    if (options.interceptors && !interceptorsBound) {
+    if (options.interceptors) {
       bindInterceptors(client, getState, options.interceptors);
     }
     const [REQUEST] = getActionTypes(action, options);
