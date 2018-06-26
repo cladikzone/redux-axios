@@ -6,6 +6,7 @@ function bindInterceptors(client, getState, { request = [], response = [] } = {}
   request.forEach((interceptor) => {
     client.interceptors.request.use(interceptor.bind(null, getState));
   });
+
   response.forEach((interceptor) => {
     client.interceptors.response.use(interceptor.bind(null, getState));
   });

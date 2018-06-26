@@ -1,11 +1,11 @@
-# redux-axios
+# cladik-redux-axios
 
-Axios wrapper for Redux
+Axios wrapper for Redux - Updated version for multiple axios clients support. ( Bug fixess from Origin ) 
 
 ## Installation
 
 ```bash
-npm i -S redux-axios
+npm i -S cladik-redux-axios
 ```
 
 ## How to use?
@@ -18,7 +18,7 @@ options for customizing
 
 ```js
 import {createStore, applyMiddleware} from 'redux';
-import axiosMiddleware from 'redux-axios';
+import axiosMiddleware from 'cladik-redux-axios';
 import clients from 'clients';
 
 let store = createStore(
