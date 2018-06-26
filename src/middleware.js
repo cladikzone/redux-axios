@@ -2,7 +2,6 @@ import * as defaultOptions from './defaults';
 import { getClient } from './getClient';
 import { getActionTypes } from './getActionTypes';
 
-let interceptorsBound = false;
 function bindInterceptors(client, getState, { request = [], response = [] } = {}) {
   request.forEach((interceptor) => {
     client.interceptors.request.use(interceptor.bind(null, getState));
@@ -10,7 +9,6 @@ function bindInterceptors(client, getState, { request = [], response = [] } = {}
   response.forEach((interceptor) => {
     client.interceptors.response.use(interceptor.bind(null, getState));
   });
-  interceptorsBound = true;
 }
 
 export default function (configs) {
